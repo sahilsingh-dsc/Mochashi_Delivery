@@ -82,12 +82,15 @@ public class ChashiFragment extends Fragment {
                                 chashiModel.setC_status(document.getString("p_delivery_status"));
                                 chashiModel.setC_total_amount(""+local_total);
                                 chashiModel.setC_received(document.getString("p_received_qty"));
+
+                                chashiModelList.add(chashiModel);
+                                chashiAdapter = new ChashiAdapter(getContext(), chashiModelList);
+                                chashiAdapter.notifyDataSetChanged();
+                                recyclerChashi.setAdapter(chashiAdapter);
+
                             }
 
-                            chashiModelList.add(chashiModel);
-                            chashiAdapter = new ChashiAdapter(getContext(), chashiModelList);
-                            chashiAdapter.notifyDataSetChanged();
-                            recyclerChashi.setAdapter(chashiAdapter);
+
                         }
                     }
                 }else {
