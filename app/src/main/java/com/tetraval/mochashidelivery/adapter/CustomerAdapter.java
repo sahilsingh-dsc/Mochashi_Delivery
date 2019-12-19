@@ -142,6 +142,8 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
                     Map map2 = new HashMap();
                     map2.put("p_delivery_status", "1");
                     map2.put("p_received_qty", qty);
+                    map2.put("p_received_qty", qty);
+                    map2.put("o_status", "Served");
 
                     db.collection("chashi_orders")
                             .document(customerModel.getP_uid())
