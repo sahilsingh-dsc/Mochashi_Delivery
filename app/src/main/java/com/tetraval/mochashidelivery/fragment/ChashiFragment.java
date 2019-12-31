@@ -1,6 +1,7 @@
 package com.tetraval.mochashidelivery.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,6 +21,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.tetraval.mochashidelivery.ChashiMapsActivity;
 import com.tetraval.mochashidelivery.R;
 import com.tetraval.mochashidelivery.adapter.ChashiAdapter;
 import com.tetraval.mochashidelivery.model.ChashiModel;
@@ -32,6 +35,7 @@ public class ChashiFragment extends Fragment {
     List<ChashiModel> chashiModelList;
     ChashiAdapter chashiAdapter;
     FirebaseFirestore db;
+    TextView txtMap;
     double total_amount, local_total = 0;
 
     public ChashiFragment() {
@@ -45,6 +49,13 @@ public class ChashiFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
 
         recyclerChashi = view.findViewById(R.id.recyclerChashi);
+        txtMap = view.findViewById(R.id.txtMap);
+        txtMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), ChashiMapsActivity.class));
+            }
+        });
         recyclerChashi.setLayoutManager(new LinearLayoutManager(getContext()));
 
         chashiModelList = new ArrayList<>();
@@ -80,7 +91,7 @@ public class ChashiFragment extends Fragment {
                                 chashiModel.setC_category(document.getString("p_category"));
                                 chashiModel.setC_total_qty(document.getString("p_bquantity"));
                                 chashiModel.setC_status(document.getString("p_delivery_status"));
-                                chashiModel.setC_total_amount(""+local_total);
+                                chashiModel.setC_total_amount(""+b_qty*total_amount);
                                 chashiModel.setC_received(document.getString("p_received_qty"));
 
                                 chashiModelList.add(chashiModel);

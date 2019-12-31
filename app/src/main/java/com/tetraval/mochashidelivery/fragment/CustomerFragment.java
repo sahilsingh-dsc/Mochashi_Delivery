@@ -1,6 +1,7 @@
 package com.tetraval.mochashidelivery.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,6 +21,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.tetraval.mochashidelivery.ChashiMapsActivity;
+import com.tetraval.mochashidelivery.CustomerMapsActivity;
 import com.tetraval.mochashidelivery.R;
 import com.tetraval.mochashidelivery.adapter.ChashiAdapter;
 import com.tetraval.mochashidelivery.adapter.CustomerAdapter;
@@ -33,6 +37,7 @@ public class CustomerFragment extends Fragment {
     List<CustomerModel> customerModelList;
     CustomerAdapter customerAdapter;
     FirebaseFirestore db;
+    TextView txtMap;
 
     public CustomerFragment() {
         // Required empty public constructor
@@ -47,6 +52,13 @@ public class CustomerFragment extends Fragment {
 
         recyclerCustomer = view.findViewById(R.id.recyclerCustomer);
         recyclerCustomer.setLayoutManager(new LinearLayoutManager(getContext()));
+        txtMap = view.findViewById(R.id.txtMap);
+        txtMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), CustomerMapsActivity.class));
+            }
+        });
 
         customerModelList = new ArrayList<>();
         customerModelList.clear();
@@ -80,8 +92,11 @@ public class CustomerFragment extends Fragment {
                                 customerModel.setP_delivered(document.getString("p_received_qty"));
                                 customerModel.setP_status(document.getString("p_delivery_status"));
                                 customerModel.setO_customer_uid(document.getString("o_customer_uid"));
-                            }
+
                             customerModelList.add(customerModel);
+
+                            }
+
                             customerAdapter = new CustomerAdapter(getContext(), customerModelList);
                             customerAdapter.notifyDataSetChanged();
                             recyclerCustomer.setAdapter(customerAdapter);

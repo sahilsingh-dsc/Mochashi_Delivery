@@ -30,8 +30,14 @@
             android:value="@string/google_maps_key" />
 
         <activity
+            android:name=".ChashiMapsActivity"
+            android:label="@string/title_activity_chashi_maps"></activity>
+        <activity
+            android:name=".CustomerMapsActivity"
+            android:label="@string/title_activity_customer_maps" />
+        <activity
             android:name=".UserMapsActivity"
-            android:label="@string/title_activity_user_maps"></activity>
+            android:label="@string/title_activity_user_maps" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
